@@ -46,23 +46,23 @@ function giveLife() { /*the interactive element*/
         ctx.fillStyle = `rgb(
             ${lifeColourA},
             ${lifeColourB},
-            ${0}
+            ${125}
         )`;
     } else if (loops < 2) {
         ctx.fillStyle = `rgb(
-            ${0},
+            ${125},
             ${lifeColourA},
             ${lifeColourB}
         )`;
     } else {
         ctx.fillStyle = `rgb(
             ${lifeColourB},
-            ${0},
+            ${125},
             ${lifeColourA}
         )`;
     }
     ctx.fillRect((64*life), 728, 64, 40);
-    ctx.fillRect((64*life), getRndInteger(0, 708), 64, 20);
+    ctx.fillRect((64*life), event.offsetY, 64, 20);
     life++;
     if (loops == 3) {
         loops = 0;
