@@ -33,6 +33,36 @@ function drawBackground() { /*draws the background using random triangles*/
     }
 }
 
+function theBackgroundLives() { /*background changes when screen clicked enough times*/
+    ctx.fillStyle = `rgb(
+            ${getRndInteger(0, 255)},
+            ${getRndInteger(0, 255)},
+            ${getRndInteger(0, 255)}
+        )`;
+    ctx.fillRect(0, 0, 1024, 768);
+    for (i = 0; i < 50; i++) {
+        ctx.fillStyle = `rgb(
+            ${getRndInteger(0, 255)},
+            ${getRndInteger(0, 255)},
+            ${getRndInteger(0, 255)}
+        )`;
+        var circleRad = getRndInteger(75, 200);
+        var currentRad = 1;
+        var circleX = getRndInteger(0, 1024);
+        var circleY = getRndInteger(0, 768);
+                function genCircle() {
+                    ctx.beginPath();
+                    ctx.arc(circleX, circleY, currentRad, 0, Math.PI * 2);
+                    ctx.fill();
+                    currentRad++;
+                        if (currentRad <= circleRad) {
+                            setTimeout(genCircle, 100);
+                        }
+                    }
+                genCircle();
+            }
+        }
+
 var life = 0;
 var loops = 0;
 function giveLife() { /*the interactive element*/
@@ -61,11 +91,11 @@ function giveLife() { /*the interactive element*/
             ${lifeColourA}
         )`;
     }
-    ctx.fillRect((64*life), 728, 64, 40);
     ctx.fillRect((64*life), event.offsetY, 64, 20);
     life++;
     if (loops == 3) {
         loops = 0;
+        theBackgroundLives()
     }
 }
 
@@ -76,5 +106,6 @@ function getRndInteger(min, max) { /*used for generating random numbers on deman
 drawBackground();
 drawBaseRects('rgb(200,200,200)');
 //drawBounceRects('rgb(240,240,240)');
+theBackgroundLives() //debug
 
 addEventListener('click', giveLife);
