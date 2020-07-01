@@ -46,6 +46,7 @@ function theBackgroundLives() { /*background changes when screen clicked enough 
             ${getRndInteger(0, 255)},
             ${getRndInteger(0, 255)}
         )`;
+        function makeTheCircles() {
         var circleRad = getRndInteger(75, 200);
         var currentRad = 1;
         var circleX = getRndInteger(0, 1024);
@@ -60,8 +61,11 @@ function theBackgroundLives() { /*background changes when screen clicked enough 
                         }
                     }
                 genCircle();
+                currentRad = 1;
             }
+        setTimeout(makeTheCircles, 100)
         }
+}
 
 var life = 0;
 var loops = 0;
