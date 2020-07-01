@@ -8,12 +8,12 @@ function drawBaseRects(rectColour) { /*draws rects at the base of the screen*/
     }
 }
 
-function drawBounceRects(rectColour) { /*draws interactive rects*/
-    ctx.fillStyle = rectColour;
-    for (i = 0; i < 17; i++) {
-        ctx.fillRect((64*i), 708, 64, 20);
-    }
-}
+//function drawBounceRects(rectColour) { /*draws interactive rects*/
+//    ctx.fillStyle = rectColour;
+//    for (i = 0; i < 17; i++) {
+//        ctx.fillRect((64*i), 708, 64, 20);
+//    }
+//} Originally meant for a second layer at base, might reimplement
 
 function drawBackground() { /*draws the background using random triangles*/
     ctx.fillStyle = 'black';
@@ -33,10 +33,48 @@ function drawBackground() { /*draws the background using random triangles*/
     }
 }
 
+var life = 0;
+var loops = 0;
+function giveLife() { /*the interactive element*/
+    if (life > 16) {
+        life = 0;
+        loops++;
+    }
+    var lifeColourA = (16*(life+1));
+    var lifeColourB = (16/(life+1));
+    if (loops < 1) {
+        ctx.fillStyle = `rgb(
+            ${lifeColourA},
+            ${lifeColourB},
+            ${0}
+        )`;
+    } else if (loops < 2) {
+        ctx.fillStyle = `rgb(
+            ${0},
+            ${lifeColourA},
+            ${lifeColourB}
+        )`;
+    } else {
+        ctx.fillStyle = `rgb(
+            ${lifeColourB},
+            ${0},
+            ${lifeColourA}
+        )`;
+    }
+    ctx.fillRect((64*life), 728, 64, 40);
+    ctx.fillRect((64*life), getRndInteger(0, 708), 64, 20);
+    life++;
+    if (loops == 3) {
+        loops = 0;
+    }
+}
+
 function getRndInteger(min, max) { /*used for generating random numbers on demand*/
   return Math.floor(Math.random() * (max - min) ) + min;
 }
 
 drawBackground();
 drawBaseRects('rgb(200,200,200)');
-drawBounceRects('rgb(240,240,240)');
+//drawBounceRects('rgb(240,240,240)');
+
+addEventListener('click', giveLife);
