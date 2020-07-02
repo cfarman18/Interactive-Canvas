@@ -1,6 +1,12 @@
 const canvas = document.getElementById('my-canvas');
 const ctx = canvas.getContext('2d');
 
+/* 
+Javascript code for canvas project
+Working title: Give Them Life
+By Conor Farman 
+*/
+
 function drawBaseRects(rectColour) { /*draws rects at the base of the screen*/
     ctx.fillStyle = rectColour;
     for (i = 0; i < 17; i++) {
@@ -15,32 +21,42 @@ function drawBaseRects(rectColour) { /*draws rects at the base of the screen*/
 //    }
 //} Originally meant for a second layer at base, might reimplement
 
+var isInitialStartup = 1
 function drawBackground() { /*draws the background using random triangles*/
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, 1024, 768);
     for (i = 0; i < 26; i++) {
-        var randomShade = getRndInteger(20, 60);
-        ctx.fillStyle = `rgb(
+        if (isInitialStartup == 1) {
+            var randomShade = getRndInteger(20, 60);
+            ctx.fillStyle = `rgb(
             ${randomShade},
             ${randomShade},
             ${randomShade}
-        )`;
+            )`;
+        } else {
+            ctx.fillStyle = `rgb(
+            ${getRndInteger(20, 60)},
+            ${getRndInteger(20, 60)},
+            ${getRndInteger(20, 60)}
+            )`;
+        }
         ctx.beginPath();
         ctx.moveTo(getRndInteger(0, 1024),getRndInteger(0, 768));
         ctx.lineTo(getRndInteger(0, 1024),getRndInteger(0, 768));
         ctx.lineTo(getRndInteger(0, 1024),getRndInteger(0, 768));
         ctx.fill();
     }
+    isInitialStartup = 0
 }
 
 function theBackgroundLives() { /*background changes when screen clicked enough times*/
-    ctx.fillStyle = `rgb(
-            ${getRndInteger(0, 255)},
-            ${getRndInteger(0, 255)},
-            ${getRndInteger(0, 255)}
-        )`;
-    ctx.fillRect(0, 0, 1024, 768);
-    for (i = 0; i < 50; i++) {
+//    ctx.fillStyle = `rgb(
+//            ${getRndInteger(0, 255)},
+//            ${getRndInteger(0, 255)},
+//            ${getRndInteger(0, 255)}
+//        )`;
+//    ctx.fillRect(0, 0, 1024, 768);
+    for (i = 0; i < 25; i++) {
         ctx.fillStyle = `rgb(
             ${getRndInteger(0, 255)},
             ${getRndInteger(0, 255)},
@@ -69,14 +85,18 @@ function theBackgroundLives() { /*background changes when screen clicked enough 
 
 var life = 0;
 var loops = 0;
+var ignoreTriangles = 0;
 function giveLife() { /*the interactive element*/
-    if (life > 16) {
+    if (life > 15) { // when clicked 16 times, numbers of loops increases
         life = 0;
         loops++;
+        if (ignoreTriangles == 0){
+            drawBackground()
+        }
     }
     var lifeColourA = (16*(life+1));
     var lifeColourB = (16/(life+1));
-    if (loops < 1) {
+    if (loops < 1) { // determines colours based on the current number of clicks as determined by the 'life' variable
         ctx.fillStyle = `rgb(
             ${lifeColourA},
             ${lifeColourB},
@@ -95,10 +115,13 @@ function giveLife() { /*the interactive element*/
             ${lifeColourA}
         )`;
     }
-    ctx.fillRect((64*life), event.offsetY, 64, 20);
+    ctx.beginPath();
+    ctx.arc(event.offsetX, event.offsetY, 50, 0, Math.PI * 2);
+    ctx.fill() // draws a circle at the mouse's position
     life++;
-    if (loops == 3) {
+    if (loops == 3) { // after 3 loops, the background drastically changes
         loops = 0;
+        ignoreTriangles = 1;
         theBackgroundLives()
     }
 }
@@ -109,7 +132,6 @@ function getRndInteger(min, max) { /*used for generating random numbers on deman
 
 drawBackground();
 drawBaseRects('rgb(200,200,200)');
-//drawBounceRects('rgb(240,240,240)');
-theBackgroundLives() //debug
+//drawBounceRects('rgb(240,240,240)'); //debug
 
 addEventListener('click', giveLife);
