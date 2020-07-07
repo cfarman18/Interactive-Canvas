@@ -7,20 +7,6 @@ Working title: Give Them Life
 By Conor Farman 
 */
 
-function drawBaseRects(rectColour) { /*draws rects at the base of the screen*/
-    ctx.fillStyle = rectColour;
-    for (i = 0; i < 17; i++) {
-        ctx.fillRect((64*i), 728, 64, 40);
-    }
-}
-
-//function drawBounceRects(rectColour) { /*draws interactive rects*/
-//    ctx.fillStyle = rectColour;
-//    for (i = 0; i < 17; i++) {
-//        ctx.fillRect((64*i), 708, 64, 20);
-//    }
-//} Originally meant for a second layer at base, might reimplement
-
 var isInitialStartup = 1
 function drawBackground() { /*draws the background using random triangles*/
     ctx.fillStyle = 'black';
