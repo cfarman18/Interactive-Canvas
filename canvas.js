@@ -101,9 +101,11 @@ function giveLife() { /*the interactive element*/
             ${lifeColourA}
         )`;
     }
-    ctx.beginPath();
-    ctx.arc(event.offsetX, event.offsetY, 50, 0, Math.PI * 2);
-    ctx.fill() // draws a circle at the mouse's position
+    if (ignoreTriangles == 0){
+        ctx.beginPath();
+        ctx.arc(event.offsetX, event.offsetY, 50, 0, Math.PI * 2);
+        ctx.fill() // draws a circle at the mouse's position
+    }
     life++;
     if (loops == 3) { // after 3 loops, the background drastically changes
         loops = 0;
