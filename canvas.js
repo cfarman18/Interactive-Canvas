@@ -117,7 +117,5 @@ function getRndInteger(min, max) { /*used for generating random numbers on deman
 }
 
 drawBackground();
-drawBaseRects('rgb(200,200,200)');
-//drawBounceRects('rgb(240,240,240)'); //debug
 
 addEventListener('click', giveLife);
