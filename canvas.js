@@ -36,36 +36,25 @@ function drawBackground() { /*draws the background using random triangles*/
 }
 
 function theBackgroundLives() { /*background changes when screen clicked enough times*/
-//    ctx.fillStyle = `rgb(
-//            ${getRndInteger(0, 255)},
-//            ${getRndInteger(0, 255)},
-//            ${getRndInteger(0, 255)}
-//        )`;
-//    ctx.fillRect(0, 0, 1024, 768);
     for (i = 0; i < 25; i++) {
-        ctx.fillStyle = `rgb(
-            ${getRndInteger(0, 255)},
-            ${getRndInteger(0, 255)},
-            ${getRndInteger(0, 255)}
-        )`;
         function makeTheCircles() {
-        var circleRad = getRndInteger(75, 200);
-        var currentRad = 1;
-        var circleX = getRndInteger(0, 1024);
-        var circleY = getRndInteger(0, 768);
-                function genCircle() {
-                    ctx.beginPath();
-                    ctx.arc(circleX, circleY, currentRad, 0, Math.PI * 2);
-                    ctx.fill();
-                    currentRad++;
-                        if (currentRad <= circleRad) {
-                            setTimeout(genCircle, 100);
+            var circleRad = getRndInteger(75, 200);
+            var currentRad = 1;
+            var circleX = getRndInteger(0, 1024);
+            var circleY = getRndInteger(0, 768);
+                    function genCircle() {
+                        ctx.beginPath();
+                        ctx.arc(circleX, circleY, currentRad, 0, Math.PI * 2);
+                        ctx.fill();
+                        currentRad++;
+                            if (currentRad <= circleRad) {
+                                setTimeout(genCircle, 100);
+                            }
                         }
-                    }
-                genCircle();
-                currentRad = 1;
-            }
-        setTimeout(makeTheCircles, 100)
+                    genCircle();
+                    currentRad = 1;
+                }
+            setTimeout(makeTheCircles, 100)
         }
 }
 
